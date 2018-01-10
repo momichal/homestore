@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Moja sprzedaż</h1>
+
+    {% for sale in sales %}
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-4">
+                <img class="card-img-top" src="{{ sale.image }}" alt="Card image cap">
+            </div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="{{ url("my_sale_details", {"id": sale.id}) }}">{{ sale.title }}</a></h4>
+                        <p class="card-text">{{ sale.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cena: {{ sale.price }} zł</li>
+                        {% if sale.status == "active" %}
+                            <li class="list-group-item">Sprzedaż kończy się {{ sale.expiresAt | date("Y-m-d H:i:s") }}</li>
+                        {% else %}
+                            <li class="list-group-item">Sprzedaż zakończona.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="card bg-light" style="margin-top: 15px;">
+            <div class="card-body">
+                <h4>Niestety nie ma żadnej aktywnej sprzedaży.</h4>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

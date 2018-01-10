@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" src="{{ sale.image }}" alt="Card image cap">
+        </div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ sale.title }}</h4>
+                    <p class="card-text">{{ sale.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cena: {{ sale.price }} zł</li>
+                    <li class="list-group-item">Sprzedaż kończy się {{ sale.expiresAt | date("Y-m-d H:i:s") }}</li>
+                </ul>
+            </div>
+            <a class="btn btn-outline-dark float-left" style="margin-top: 15px; margin-right: 5px;" href="{{ url("my_sale_index") }}">Powrót</a>
+            <a class="btn btn-outline-info float-left" style="margin-top: 15px; margin-right: 5px;" href="{{ url("my_sale_edit", {"id": sale.id}) }}">Edytuj</a>
+
+            {{ form_start(deleteForm, {"attr": {"class": "float-left", "style": "margin-top: 15px; margin-right: 5px;"}}) }}
+                {{ form_widget(deleteForm.submit, {"attr": {"class": "btn-outline-danger"}}) }}
+                {{ form_rest(deleteForm) }}
+            {{ form_end(deleteForm) }}
+
+            {{ form_start(finishForm, {"attr": {"class": "float-left", "style": "margin-top: 15px;"}}) }}
+                {{ form_widget(finishForm.submit, {"attr": {"class": "btn-outline-warning"}}) }}
+                {{ form_rest(finishForm) }}
+            {{ form_end(finishForm) }}
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}

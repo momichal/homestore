@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" src="{{ sale.image }}" alt="Card image cap">
+        </div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ sale.title }}</h4>
+                    <p class="card-text">{{ sale.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cena: {{ sale.price }} zł</li>
+                    <li class="list-group-item {{ saleStyle(sale.expiresAt) }}">
+                        Sprzedaż kończy się {{ sale.expiresAt | expireDate }}
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-outline-dark float-left" style="margin-top: 15px; margin-right: 5px;" href="{{ url("sale_index") }}">Powrót</a>
+
+            {% if is_granted("ROLE_USER") %}
+                {{ form_start(buyForm, {"attr": {"class": "float-left", "style": "margin-top: 15px;"}}) }}
+                    {{ form_widget(buyForm.submit, {"attr": {"class": "btn-outline-success"}}) }}
+                    {{ form_rest(buyForm) }}
+                {{ form_end(buyForm) }}
+            {% endif %}
+
+            {% if not is_granted("ROLE_USER") %}
+                <div class="text-danger" style="margin-top: 23px;">
+                        <h6>Żeby kupować musisz się zalogować</h6>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

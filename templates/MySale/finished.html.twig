@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" src="{{ sale.image }}" alt="Card image cap">
+        </div>
+        <div class="col-8">
+            <div class="card border border-warning">
+                <div class="card-body">
+                    <h4 class="card-title text-warning">{{ sale.title }}</h4>
+                    <p class="card-text">{{ sale.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cena: {{ sale.price }} zł</li>
+                    <li class="list-group-item text-warning">Sprzedaż zakończonyła się {{ sale.expiresAt | date("Y-m-d H:i:s") }}</li>
+                </ul>
+            </div>
+            <a class="btn btn-outline-dark float-left" style="margin-top: 15px;" href="{{ url("my_sale_index") }}">Powrót</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}

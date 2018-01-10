@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Kupione</h1>
+
+    {% for buy in buys %}
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-4">
+                <img class="card-img-top" src="{{ buy.sale.image }}" alt="Card image cap">
+            </div>
+            <div class="col-8">
+                <div class="card border border-success">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ buy.sale.title }}</h4>
+                        <p class="card-text">{{ buy.sale.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-success">
+                            Kupiłeś przedmiot dnia {{ buy.sale.expiresAt | date("Y-m-d H:i:s") }}
+                            za kwotę {{ buy.sale.price }} zł
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="card bg-light" style="margin-top: 15px;">
+            <div class="card-body">
+                <h4>Niestety nie kupiłeś żadnego przedmiotu.</h4>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
